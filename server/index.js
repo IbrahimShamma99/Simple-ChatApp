@@ -17,7 +17,9 @@ require('./strategies/jwtStrategy')(passport);
 mongoose.connect("mongodb://localhost/Chatting", {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-    useCreateIndex: true,})
+    useCreateIndex: true})
+    .then(()=>{console.log("that's right DB is working")})
+    .catch(()=>{console.log("DB is not working")})
 
 app.use('/api/user',user);
 app.use('/api/group',group);

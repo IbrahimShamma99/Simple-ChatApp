@@ -3,13 +3,13 @@ const router = express.Router();
 const passport = require("passport");
 const Group = require("../models/Group");
 const Message = require("../models/Message");
-
+const constants = require("./constants");
 // @type Get
 // @path /api/group/test
 // @des test group
 // @acess Public
 
-router.get("/test", (req, res) => {
+router.get(constants.test, (req, res) => {
   res.send("Group Api Working");
 });
 
@@ -18,8 +18,8 @@ router.get("/test", (req, res) => {
 // @des create group
 // @acess Private
 
-router.post(
-  "/create",
+router.post(constants.create
+  ,
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let newGroup = new Group({
@@ -38,7 +38,7 @@ router.post(
 // @des get list of all groups
 // @acess Public
 
-router.get("/", (req, res) => {
+router.get(constants.base, (req, res) => {
   Group.find()
     .populate("users.user")
     .populate("messages.message")
@@ -54,7 +54,7 @@ router.get("/", (req, res) => {
 // @acess Private
 
 router.post(
-  "/join/:group_id",
+  constants.join,
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Group.findOne({ _id: req.params.group_id })
@@ -90,7 +90,7 @@ router.post(
 // @acess Private
 
 router.get(
-  "/messages/:group_id",
+  constants.messeges,
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Group.findOne({ _id: req.params.group_id })
@@ -110,7 +110,7 @@ router.get(
 // @access Private
 
 router.post(
-  "/addMessage/:group_id",
+  constants.addMesseges,
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const content = req.body.content;

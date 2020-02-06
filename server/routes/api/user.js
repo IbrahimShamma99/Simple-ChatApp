@@ -4,12 +4,12 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const User = require('../models/User');
-
+const constants = require("./constants");
 // @type GET
 // @route /api/user/
 // @desc just to test
 // @access Public
-router.get('/',(req,res) => {
+router.get(constants.base,(req,res) => {
     res.send('Hello');
 })
 
@@ -18,7 +18,7 @@ router.get('/',(req,res) => {
 // @desc to register user
 // @access Public
 
-router.post('/register',(req,res) => {
+router.post(constants.register,(req,res) => {
     User.findOne({ email: req.body.email })
         .then(user => {
             if(user) {
@@ -49,7 +49,7 @@ router.post('/register',(req,res) => {
 // @route /api/user/login
 // @desc to login user
 // @access Public
-router.post('/login',(req,res) => {
+router.post(constants.login,(req,res) => {
     const email = req.body.email;
     const password = req.body.password;
 
